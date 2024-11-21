@@ -31,8 +31,8 @@ OBJECTS  = $(SOURCES:.cpp=.o)
 DEPENDS  = $(OBJECTS:.o=.d)
 INCLUDES = $(addprefix -I,$(MODULES))
 
-CXXFLAGS = -std=c++14 -Wall -Wextra $(INCLUDES) `pkg-config --cflags opencv`
-LDFLAGS = `pkg-config --libs opencv`
+CXXFLAGS = -std=c++14 -Wall -Wextra $(INCLUDES) `pkg-config --cflags opencv4`
+LDFLAGS = `pkg-config --libs opencv4`
 
 all: $(OBJECTS)
 	$(CXX) $(CXXFLAGS) -o maze_generator $^ $(LDFLAGS)
