@@ -15,11 +15,15 @@
 #include "recursive_division.h"
 
 #include "solver.h"
-
+#include <chrono>
 #include <iostream>
 #include <stdexcept>
 #include <ctime>
 #include "file_system.h"
+
+using std::chrono::high_resolution_clock;
+using std::chrono::duration;
+using std::chrono::duration_cast;
 
 /**
  * @brief   Main function.
@@ -70,7 +74,11 @@ int32_t main(void)
     filename += "_Aldous_Broder.png";                     /**< Add the name of the algorithm into the filename. */
     maze = m_maze.get_maze();                             /**< Get the maze. */
     m_file_system.save(maze, filename);                   /**< Save. */
+    high_resolution_clock::time_point begin = high_resolution_clock::now();
     m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u); /**< Solve it. */
+    auto time_span = duration_cast<duration<double>>
+    (high_resolution_clock::now() - begin);
+    std::cout << "Total Time to Solve:" << time_span.count() << '\n';
     filename.insert(filename.size()-4u, "_Solved");       /**< Rename the filename. */
     m_file_system.save(maze, filename);                   /**< Save again. */
   }
@@ -83,7 +91,11 @@ int32_t main(void)
     filename += "_Binary_tree.png";
     maze = m_maze.get_maze();
     m_file_system.save(maze, filename);
-    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
+    high_resolution_clock::time_point begin = high_resolution_clock::now();
+    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u); /**< Solve it. */
+    auto time_span = duration_cast<duration<double>>
+    (high_resolution_clock::now() - begin);
+    std::cout << "Total Time to Solve:" << time_span.count() << '\n';
     filename.insert(filename.size()-4u, "_Solved");
     m_file_system.save(maze, filename);
   }
@@ -96,8 +108,11 @@ int32_t main(void)
     filename += "_Kruskal.png";
     maze = m_maze.get_maze();
     m_file_system.save(maze, filename);
-    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
-    filename.insert(filename.size()-4u, "_Solved");
+    high_resolution_clock::time_point begin = high_resolution_clock::now();
+    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u); /**< Solve it. */
+    auto time_span = duration_cast<duration<double>>
+    (high_resolution_clock::now() - begin);
+    std::cout << "Total Time to Solve:" << time_span.count() << '\n';    filename.insert(filename.size()-4u, "_Solved");
     m_file_system.save(maze, filename);
   }
   else if (4u == algorithm)
@@ -109,8 +124,11 @@ int32_t main(void)
     filename += "_Prim.png";
     maze = m_maze.get_maze();
     m_file_system.save(maze, filename);
-    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
-    filename.insert(filename.size()-4u, "_Solved");
+    high_resolution_clock::time_point begin = high_resolution_clock::now();
+    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u); /**< Solve it. */
+    auto time_span = duration_cast<duration<double>>
+    (high_resolution_clock::now() - begin);
+    std::cout << "Total Time to Solve:" << time_span.count() << '\n';    filename.insert(filename.size()-4u, "_Solved");
     m_file_system.save(maze, filename);
   }
   else if (5u == algorithm)
@@ -122,8 +140,11 @@ int32_t main(void)
     filename += "_Recursive_backtracking.png";
     maze = m_maze.get_maze();
     m_file_system.save(maze, filename);
-    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
-    filename.insert(filename.size()-4u, "_Solved");
+    high_resolution_clock::time_point begin = high_resolution_clock::now();
+    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u); /**< Solve it. */
+    auto time_span = duration_cast<duration<double>>
+    (high_resolution_clock::now() - begin);
+    std::cout << "Total Time to Solve:" << time_span.count() << '\n';    filename.insert(filename.size()-4u, "_Solved");
     m_file_system.save(maze, filename);
   }
   else if (6u == algorithm)
@@ -135,8 +156,11 @@ int32_t main(void)
     filename += "_Recursive_division.png";
     maze = m_maze.get_maze();
     m_file_system.save(maze, filename);
-    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
-    filename.insert(filename.size()-4u, "_Solved");
+    high_resolution_clock::time_point begin = high_resolution_clock::now();
+    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u); /**< Solve it. */
+    auto time_span = duration_cast<duration<double>>
+    (high_resolution_clock::now() - begin);
+    std::cout << "Total Time to Solve: " << time_span.count() << '\n';    filename.insert(filename.size()-4u, "_Solved");
     m_file_system.save(maze, filename);
   }
   else
