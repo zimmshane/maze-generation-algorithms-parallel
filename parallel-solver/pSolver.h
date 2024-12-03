@@ -30,18 +30,40 @@ namespace maze {
   static constexpr uint8_t east   = 3u;
 
 struct Coord{
-  explicit Coord(u_int32_t x, u_int32_t y, uint8_t direction);
+  Coord(){}
+  Coord(uint32_t x, uint32_t y, uint8_t direction){
+    this->x=x;
+    this->y=y;
+    this->direction=direction;
+  }
+  Coord(int x, int y){
+    this->x = x;
+    this->y=y;
+  }
   uint32_t x;
   uint32_t y;
   uint8_t direction;
 };
 
+struct Bounds{
+  Bounds(uint32_t rstart, uint32_t rend, uint32_t cstart, uint32_t cend){
+    this->rowStart=rstart;
+    this->rowEnd=rend;
+    this->colStart=cstart;
+    this->colEnd=cend;
+  }
+  int rowStart;
+  int rowEnd;
+  int colStart;
+  int colEnd;
+};
+
 class MazeNode{
-  explicit MazeNode(Coord enter, Coord exit, std::vector<uint8_t> path);
+  explicit MazeNode(const maze::Coord *enter, const maze::Coord *exit, std::vector<uint8_t> *path);
   private:
-  const Coord enter;
-  const Coord exit;
-  std::vector<uint8_t> path; //directions to get from enter to exit
+  const Coord* enter;
+  const Coord* exit;
+  std::vector<uint8_t>* path; //directions to get from enter to exit
 };
 
 class MazeTree{
@@ -50,22 +72,23 @@ class MazeTree{
   std::unordered_map<const Coord, std::vector<std::shared_ptr<MazeNode>>> parents; //tree only provides path up
   public:
   MazeTree(maze::MazeNode);
-  std::vector<uint8_t> reversePath(std::vector<u_int8_t> path); // reverse the directions of a node's path
+  std::vector<uint8_t> reversePath(std::vector<uint8_t> path); // reverse the directions of a node's path
   void insert(maze::MazeNode); //add maze node to tree
 
 };
 
 class ParallelSolver{
 public:
-explicit ParallelSolver();
-void partitionMaze(uint32_t thread_count);
-void solveSubmaze();
+ParallelSolver(maze_generator *mazey, int &mazeEntrenceX, int &mazeEntrenceY, int &mazeExitX, int &mazeExitY);
+std::vector<Bounds> partitionMaze();
+void solveSubmazes();
 void constructSolution();
 
 private:
-uint16_t threadCount;
-Coord mazeEntrence;
-Coord mazeExit;
+maze::maze_generator* mazey;
+std::vector<Bounds> partitions;
+maze::Coord mazeEntrence;
+maze::Coord mazeExit;
 
 };
 
