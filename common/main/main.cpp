@@ -13,6 +13,7 @@
 #include "prim.h"
 #include "recursive_backtracking.h"
 #include "recursive_division.h"
+#include "parallel-solver.cpp"
 
 #include "solver.h"
 #include <chrono>
@@ -39,6 +40,7 @@ int32_t main(void)
   time_t current_time   = 0u;
   maze::file_system m_file_system;
   maze::solver m_solver;
+  ParallelSolver psolver;
   std::vector<std::vector<uint32_t>> maze;
   
   std::cout << "\n--------------------------------\n";
@@ -141,7 +143,8 @@ int32_t main(void)
     maze = m_maze.get_maze();
     m_file_system.save(maze, filename);
     high_resolution_clock::time_point begin = high_resolution_clock::now();
-    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u); /**< Solve it. */
+    psolver.solveMaze(maze,Point(0,1),Point(height-1,width-2));
+    //m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u); /**< Solve it. */
     auto time_span = duration_cast<duration<double>>
     (high_resolution_clock::now() - begin);
     std::cout << "Total Time to Solve:" << time_span.count() << '\n';    filename.insert(filename.size()-4u, "_Solved");

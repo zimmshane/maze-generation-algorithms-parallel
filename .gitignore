@@ -3,6 +3,7 @@
 *.o
 output/*
 maze_generator
+old/*
 
 #except
 !output/.gitkeep

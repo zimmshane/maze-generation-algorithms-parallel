@@ -17,6 +17,7 @@ MODULES += mazes/prim
 MODULES += mazes/recursive_backtracking
 MODULES += mazes/recursive_division
 
+
 # Common
 MODULES += common/file_system
 MODULES += common/main
@@ -24,6 +25,7 @@ MODULES += common/maze_generator
 
 # Solver
 MODULES += solver
+MODULES += parallel-solver
 
 WILDSRC  = $(addsuffix /*.cpp,$(MODULES))
 SOURCES  = $(wildcard $(WILDSRC))
@@ -31,8 +33,8 @@ OBJECTS  = $(SOURCES:.cpp=.o)
 DEPENDS  = $(OBJECTS:.o=.d)
 INCLUDES = $(addprefix -I,$(MODULES))
 
-CXXFLAGS = -std=c++14 -Wall -Wextra $(INCLUDES) `pkg-config --cflags opencv4`
-LDFLAGS = `pkg-config --libs opencv4`
+CXXFLAGS = -std=c++14 -Wall -Wextra -fopenmp $(INCLUDES) `pkg-config --cflags opencv4`
+LDFLAGS = `pkg-config --libs opencv4 `
 
 all: $(OBJECTS)
 	$(CXX) $(CXXFLAGS) -o maze_generator $^ $(LDFLAGS)
